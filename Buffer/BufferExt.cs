@@ -11,7 +11,7 @@ namespace Ext
     {
         public static IEnumerable<T> ToBuffer<T>(this IEnumerable<T> enumerable)
         {
-            return new Buffer<T>(enumerable.GetEnumerator());
+            return new Buffer<T>(enumerable);
         } 
     }
 }
