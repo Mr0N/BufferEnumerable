@@ -9,7 +9,7 @@ namespace Ext
 {
     class Buffer<T> : IEnumerable<T>, IEnumerator<T>
     {
-        public Buffer(IEnumerable<T> enumerable, bool? state = null)
+        public Buffer(IEnumerable<T> enumerable, bool bufferState = true, bool? state = null)
         {
             if (state != null)
             {
@@ -21,7 +21,9 @@ namespace Ext
             }
             this.enumerable = enumerable;
             this.enumerator = enumerable.GetEnumerator();
+            this.bufferState = bufferState;
         }
+        bool bufferState;
         bool state;
         IEnumerable<T> enumerable;
         IEnumerator<T> enumerator;
@@ -40,7 +42,7 @@ namespace Ext
 
         public IEnumerator<T> GetEnumerator()
         {
-            if (check != null && check == true)
+            if (bufferState &&check != null && check == true)
             {
                 return new Buffer<T>(this.enumerable);
             }

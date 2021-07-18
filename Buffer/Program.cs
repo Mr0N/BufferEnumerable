@@ -11,7 +11,7 @@ namespace Ext
         static void Main(string[] args)
         {
             int count = 0;
-            var result = Enumerable.Range(0, 10).Select(a=>a+=2).ToBuffer();
+            var result = Enumerable.Range(0, 10).Select(a=>a+=2).ToBuffer(false);
             foreach (var item in result)
             {
                 Console.WriteLine(item);
@@ -21,6 +21,7 @@ namespace Ext
             foreach (var item in result)
             {
                 count++;
+                if (item == 5) break;
                 Console.WriteLine(item);
             }
             Console.WriteLine(new string('-', 5));

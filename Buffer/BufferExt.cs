@@ -9,9 +9,9 @@ namespace Ext
    
     static class BufferExt
     {
-        public static IEnumerable<T> ToBuffer<T>(this IEnumerable<T> enumerable)
+        public static IEnumerable<T> ToBuffer<T>(this IEnumerable<T> enumerable, bool bufferState = true)
         {
-            return new Buffer<T>(enumerable);
+            return new Buffer<T>(enumerable,bufferState);
         } 
     }
 }
