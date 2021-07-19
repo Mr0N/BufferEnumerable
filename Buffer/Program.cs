@@ -12,12 +12,12 @@ namespace Ext
         {
             int index = 0;
             int count = 0;
-            var result = Enumerable.Range(0, 10).Select(a=>a+=2+ index).ToBuffer();
+            var result = Enumerable.Range(0, 5).Select(a=>a+=2+ index).ToBuffer();
             var enumerator = result.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 Console.WriteLine(enumerator.Current);
-                //enumerator.MoveNext();
+                enumerator.MoveNext();
             }
             enumerator.Dispose();
             Console.WriteLine(new string('-', 10));
@@ -26,7 +26,8 @@ namespace Ext
             {
                 Console.WriteLine(enumerator.Current);
                 index = 10;
-                enumerator.MoveNext();
+                Console.WriteLine(enumerator.Current);
+               // enumerator.MoveNext();
             }
             Console.WriteLine(new string('-', 10));
             enumerator.Dispose();

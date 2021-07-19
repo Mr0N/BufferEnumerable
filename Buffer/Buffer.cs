@@ -37,9 +37,14 @@ namespace Ext
         {
             get
             {
-                if (stateMoveNext) currentEnumerable++;
-                var current = this.enumerator.Current;
+                
+                    var current = this.enumerator.Current;
                 if (stateMoveNext && buffer != null) buffer.Add(current);
+                if (stateMoveNext)
+                {
+                    currentEnumerable++;
+                    stateMoveNext = false;
+                }
                 return current;
             }
         }
@@ -50,12 +55,12 @@ namespace Ext
         {
             try
             {
-               // Console.WriteLine("MoveNext:{0},Current:{1}", this.moveNext, this.currentEnumerable);
                 if (saveBuffer) return this.enumerator;
                 if (bufferState && currentEnumerable != moveNext)
                 {
                     moveNext = 0;
                     currentEnumerable = 0;
+                    stateMoveNext = false;
                     this.buffer = new List<T>();
                     this.Dispose();
                     this.enumerator = this.enumerable.GetEnumerator();
