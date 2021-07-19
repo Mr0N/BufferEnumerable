@@ -10,18 +10,29 @@ namespace Ext
        
         static void Main(string[] args)
         {
+            int index = 0;
             int count = 0;
-            var result = Enumerable.Range(0, 10).Select(a=>a+=2).ToBuffer();
+            var result = Enumerable.Range(0, 10).Select(a=>a+=2+ index).ToBuffer();
             var enumerator = result.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 Console.WriteLine(enumerator.Current);
                 Console.WriteLine(enumerator.Current);
+                enumerator.MoveNext();
             }
+            Console.WriteLine(new string('-', 10));
             enumerator = result.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 Console.WriteLine(enumerator.Current);
+                index = 10;
+            }
+            Console.WriteLine(new string('-', 10));
+            enumerator = result.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                Console.WriteLine(enumerator.Current);
+                index = 100;
             }
             Console.ReadKey();
         }

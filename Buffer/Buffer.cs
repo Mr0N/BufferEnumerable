@@ -46,7 +46,7 @@ namespace Ext
 
         public IEnumerator<T> GetEnumerator()
         {
-            if(this.moveNext != this.currentEnumerable)
+            if(this.moveNext != this.currentEnumerable-1)
                 return new Buffer<T>(this.enumerable);
             if (bufferState &&check != null && check == true)
             {
