@@ -35,7 +35,7 @@ namespace Ext
         {
             get
             {
-                if(stateMoveNext) currentEnumerable++;
+                if (stateMoveNext) currentEnumerable++;
                 var current = this.enumerator.Current;
                 if (stateMoveNext && buffer != null) buffer.Add(current);
                 return current;
@@ -46,9 +46,9 @@ namespace Ext
 
         public IEnumerator<T> GetEnumerator()
         {
-            if(this.moveNext != this.currentEnumerable-1)
-                return new Buffer<T>(this.enumerable);
-            if (bufferState &&check != null && check == true)
+          
+            if (  
+                 bufferState && check != null && check == true)
             {
                 return new Buffer<T>(this.enumerable);
             }
@@ -56,7 +56,8 @@ namespace Ext
             {
                 return this;
             }
-            else return new Buffer<T>(this.buffer,true, this.state);
+            else return new Buffer<T>(this.buffer, true, this.state);
+           
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -66,9 +67,10 @@ namespace Ext
         bool? check = null;
         public bool MoveNext()
         {
-            moveNext++;
+
             stateMoveNext = true;
             check = this.enumerator.MoveNext();
+            if (check.Value) moveNext++;
             return check.Value;
         }
 

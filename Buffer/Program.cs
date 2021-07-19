@@ -17,9 +17,9 @@ namespace Ext
             while (enumerator.MoveNext())
             {
                 Console.WriteLine(enumerator.Current);
-                Console.WriteLine(enumerator.Current);
                 enumerator.MoveNext();
             }
+            enumerator.Dispose();
             Console.WriteLine(new string('-', 10));
             enumerator = result.GetEnumerator();
             while (enumerator.MoveNext())
@@ -28,12 +28,14 @@ namespace Ext
                 index = 10;
             }
             Console.WriteLine(new string('-', 10));
+            enumerator.Dispose();
             enumerator = result.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 Console.WriteLine(enumerator.Current);
                 index = 100;
             }
+            enumerator.Dispose();
             Console.ReadKey();
         }
     }
