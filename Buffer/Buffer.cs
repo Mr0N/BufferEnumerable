@@ -9,28 +9,30 @@ namespace Ext
 {
     class Buffer<T> : IEnumerable<T>, IEnumerator<T>
     {
-        public Buffer(IEnumerable<T> enumerable, bool bufferState = true, bool? state = null)
+        public Buffer(IEnumerable<T> enumerable, bool bufferState = true, bool? state = null,bool saveBuffer=false)
         {
             if (state != null)
             {
                 this.state = state.Value;
             }
-            else
-            {
+  
                 this.buffer = new List<T>();
-            }
+        
             this.enumerable = enumerable;
             this.enumerator = enumerable.GetEnumerator();
             this.bufferState = bufferState;
+            this.saveBuffer = saveBuffer;
         }
         int moveNext;
         int currentEnumerable;
         bool stateMoveNext;
         bool bufferState;
         bool state;
+        bool? check = null;
         IEnumerable<T> enumerable;
         IEnumerator<T> enumerator;
         List<T> buffer;
+        bool saveBuffer;
         public T Current
         {
             get
@@ -46,17 +48,30 @@ namespace Ext
 
         public IEnumerator<T> GetEnumerator()
         {
-          
-            if (  
-                 bufferState && check != null && check == true)
+            try
             {
-                return new Buffer<T>(this.enumerable);
+               // Console.WriteLine("MoveNext:{0},Current:{1}", this.moveNext, this.currentEnumerable);
+                if (saveBuffer) return this.enumerator;
+                if (bufferState && currentEnumerable != moveNext)
+                {
+                    moveNext = 0;
+                    currentEnumerable = 0;
+                    this.buffer = new List<T>();
+                    this.Dispose();
+                    this.enumerator = this.enumerable.GetEnumerator();
+                    return this;
+                }
+                if (state == false)
+                {
+                    return this;
+                }
+                else return new Buffer<T>(this.buffer, true, true,true);
             }
-            if (state == false)
+            finally
             {
-                return this;
+                this.moveNext = 0;
+                this.currentEnumerable = 0;
             }
-            else return new Buffer<T>(this.buffer, true, this.state);
            
         }
 
@@ -64,7 +79,7 @@ namespace Ext
         {
             return this.GetEnumerator();
         }
-        bool? check = null;
+     
         public bool MoveNext()
         {
 
