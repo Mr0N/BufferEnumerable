@@ -9,15 +9,15 @@ namespace Ext
 {
     class Buffer<T> : IEnumerable<T>, IEnumerator<T>
     {
-        public Buffer(IEnumerable<T> enumerable, bool bufferState = true, bool? state = null,bool saveBuffer=false)
+        public Buffer(IEnumerable<T> enumerable, bool bufferState = true, bool? state = null, bool saveBuffer = false)
         {
             if (state != null)
             {
                 this.state = state.Value;
             }
-  
-                this.buffer = new List<T>();
-        
+
+            this.buffer = new List<T>();
+
             this.enumerable = enumerable;
             this.enumerator = enumerable.GetEnumerator();
             this.bufferState = bufferState;
@@ -37,8 +37,8 @@ namespace Ext
         {
             get
             {
-                
-                    var current = this.enumerator.Current;
+
+                var current = this.enumerator.Current;
                 if (stateMoveNext && buffer != null) buffer.Add(current);
                 if (stateMoveNext)
                 {
@@ -70,21 +70,21 @@ namespace Ext
                 {
                     return this;
                 }
-                else return new Buffer<T>(this.buffer, true, true,true);
+                else return new Buffer<T>(this.buffer, true, true, true);
             }
             finally
             {
                 this.moveNext = 0;
                 this.currentEnumerable = 0;
             }
-           
+
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
         }
-     
+
         public bool MoveNext()
         {
 

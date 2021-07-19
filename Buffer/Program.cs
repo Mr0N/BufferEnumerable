@@ -38,6 +38,14 @@ namespace Ext
                 index = 100;
             }
             enumerator.Dispose();
+            Console.WriteLine(new string('-',10));
+            enumerator = result.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                Console.WriteLine(enumerator.Current);
+                index = 100;
+            }
+            enumerator.Dispose();
             Console.ReadKey();
         }
     }
