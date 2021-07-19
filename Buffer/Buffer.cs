@@ -55,7 +55,7 @@ namespace Ext
         {
             try
             {
-                if (saveBuffer) return this.enumerator;
+                if (saveBuffer) return this.enumerable.GetEnumerator(); 
                 if (bufferState && currentEnumerable != moveNext)
                 {
                     moveNext = 0;
